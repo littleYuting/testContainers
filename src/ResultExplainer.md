@@ -20,3 +20,27 @@
         - 过滤：遍历过程需对集合某元素进行删除等，使用显式的迭代器，以便可以调用它的remove方法。
         - 转换：遍历过程需对集合元素进行修改；
         - 平行迭代：并行地遍历多个集合，就需要显式的控制迭代器或者索引变量，以便所有迭代器或者索引变量都可以得到同步前移。
+
+## 2. Collectons HashSet、TreeSet和LinkedHashSet 的插入顺序和插入性能对比
+![插入顺序对比](https://github.com/littleYuting/testContainers/blob/master/pic/5.png)
+
+2.1 结果
+- Set无重复元素
+- HashSet随机插入，treeSet按定义顺序插入，LinkedList按构造顺序插入。
+    
+![TreeSet在两种数据类型下的排序](https://github.com/littleYuting/testContainers/blob/master/pic/6.png)
+
+2.2 结果
+- 对于基本数据类型，会按ASCALL码进行排序；
+- 对于引用数据类型，有两种方法：
+    - 自然排序法：引用类实现Comparable接口，重写compareTo方法；
+    - 比较器：新建一个实现Comparator接口的类，重写compare方法；
+    - 重写方法，需针对引用类的属性自定义比较规则；
+- 对于引用数据类型，建议采用比较器，不改变原有类的结构。
+
+![三种set插入性能对比](https://github.com/littleYuting/testContainers/blob/master/pic/7.png)
+
+1.1 结论 
+  - hashSet和linkedHashSet在百万级及以下规模时，效率基本一致，linkedHashSet的时间消耗主要是创建双向循环链表
+  - treeSet插入性能差的主要原因是在插入过程中构造一棵红黑树。
+
