@@ -2,9 +2,10 @@ import java.util.*;
 
 public class testSet {
     public static void main(String[] args){
-        testOrder();//三种Set的插入顺序对比
-        testTreeSet();//对比TreeSet的两种排序方式，一种是针对基本数据类型，一种是针对类对象
+//        testOrder();//三种Set的插入顺序对比
+//        testTreeSet();//对比TreeSet的两种排序方式，一种是针对基本数据类型，一种是针对类对象
 //        testAddingTime();//三种Set的插入时间对比
+        testHashSet();
     }
 
     public static void testOrder(){
@@ -54,9 +55,25 @@ public class testSet {
         }
         for (Student s: students
              ) {
-            s.getInfo();
+            System.out.println(s);
         }
         //总结：对于引用数据类型用比较器实现较好，不用修改原有类的结构
+    }
+
+    public static void testHashSet(){
+        //HashSet针对类对象的排序要重写 hashcode 和 equals 方法
+        HashSet<Student> students = new HashSet<>();
+        Student[] arrayStudent = {new Student("e",12), new Student("a",21),
+                new Student("c",10), new Student("a",21)};
+        List<Student> listStudent = Arrays.asList(arrayStudent);
+        for (Student student: listStudent
+        ) {
+            students.add(student);
+        }
+        Iterator it = students.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 
     public static void testAddingTime(){
@@ -157,12 +174,31 @@ class Student{
         this.age = age;
     }
 
-    public void getInfo(){
-        System.out.println("the student's name is "+this.name+", and his age is "+this.age);
+//    public void getInfo(){
+//        System.out.println("the student's name is "+this.name+", and his age is "+this.age);
+//    }
+
+    @Override
+    public int hashCode(){
+        return this.name.hashCode() + age;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Student) {
+            Student p = (Student)obj;
+            return this.name == p.getName() && this.age == p.getAge();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public  String toString(){
+        return "Person @ name : " + this.name + " , age : " + this.age;
     }
 }
 class StudentComparetor implements Comparator<Student>{
-
     @Override
     public int compare(Student s1, Student s2){
         int num = s1.getName().length() - s2.getName().length();//判断名字长度一致
