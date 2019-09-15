@@ -12,18 +12,10 @@ public class testMap {
 //        testHashMap();
 //        testTreeMap();
 //        testNull();
-//        test();
 //        testOrder();
         testPerformance();
     }
-    public static void test(){
-        Map map = new HashMap();
-        map.put("a", 1);
-        map.put("b", 2);
-        System.out.println(map.isEmpty());
-        map.clear();
-        System.out.println(map.isEmpty());
-    }
+
     public static void testBaseMethods(){
         // just using hashMap as an example
         Map map = new HashMap();
