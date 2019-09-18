@@ -8,12 +8,12 @@ public class testMap {
      * @param args
      */
     public static void main(String[] args){
-//        testBaseMethods();
+        testBaseMethods();
 //        testHashMap();
 //        testTreeMap();
 //        testNull();
 //        testOrder();
-        testPerformance();
+//        testPutPerformance();
     }
 
     public static void testBaseMethods(){
@@ -44,30 +44,15 @@ public class testMap {
         //isContain
         System.out.println(map1.containsKey("c"));//output : false
         System.out.println(map2.containsValue(1));//output : true
-        //traverse map2 as example , output : key : 1 , value : 1; key : a , value : 4; key : b , value : 2; key : e , value : 5
-        // traverse-one : map.keySet
-        Set set1 = map2.keySet();
-        Iterator it1 = set1.iterator();
-        while (it1.hasNext()) {
-            Object key_obj = it1.next();
-            Object value_obj = map2.get(key_obj);
-            System.out.println("key : " + key_obj + " , value : " + value_obj);
-        }
-        // traverse-two : map.values
-        Collection collection2 = map2.values();
-        Iterator it2 = collection2.iterator();
-        while (it2.hasNext()) {
-            Object value_obj = it2.next();
-            System.out.println("value : " + value_obj);
-        }//output : only value, no key
+
+        //traverse
+        // map2 as example , output : key : 1 , value : 1; key : a , value : 4; key : b , value : 2; key : e , value : 5
+        traverseOne(map2);
+        traverseTwo(map2);//output : only value, no key
         //traverse-Three 一般情况下推荐使用 map.entrySet
-//        注：Set<Map.Entry<>> = map.entrySet(); 如果用set作为中间类型，需要设置容器内的数据类型，所以还是采用以下方式实现
-        Map.Entry en = null;
-        Iterator iterator = map2.entrySet().iterator();
-        while (iterator.hasNext()) {
-            en = (Map.Entry) iterator.next();
-            System.out.println("key : " + en.getKey() + " , value : " + en.getValue());
-        }//output : key : a , value : 4; key : b , value : 2; key : e , value : 5
+        // 注：Set<Map.Entry<>> = map.entrySet(); 如果用set作为中间类型，需要设置容器内的数据类型，所以还是采用以下方式实现
+        traverseThree(map2);
+
         map.clear();//清空map
         System.out.println(map.isEmpty());//isEmpty()判断map是否为空
     }
@@ -181,7 +166,7 @@ public class testMap {
         System.out.println(dic1);// hashTable无序
         System.out.println(map2);// hashMap 无序
         System.out.println(map3);// linkedHashMap 有序，且与put顺序一致
-        System.out.println(map4);// treeMap 有序，按照一定顺序重拍， 与put顺序可能不一致
+        System.out.println(map4);// treeMap 有序，按照一定规则重排， 与put顺序可能不一致
     }
     public static void creatMap(Map map){
         map.put("cyt", 2);
@@ -190,7 +175,7 @@ public class testMap {
         map.put("hkp", 0);
     }
 
-    public static void testPerformance(){
+    public static void testPutPerformance(){
         Map hashMap= new HashMap();
         Map treeMap = new TreeMap();
         Map linkedHashMap = new LinkedHashMap();
@@ -246,6 +231,74 @@ public class testMap {
         }
         endTime = System.nanoTime();
         return endTime - startTime;
+    }
+
+    public static void testTraversePerformance(){
+        Map map = new HashMap();
+        Integer nums = 1000;
+        testVaryNums(map, nums);
+        nums = 50000;
+        testVaryNums(map, nums);
+        nums = 1000000;
+        testVaryNums(map, nums);
+        nums = 100000000;
+        testVaryNums(map, nums);
+    }
+    public static void testVaryNums(Map map, Integer nums){
+        Random r = new Random();
+        for (int i = 0; i < nums; i++) {
+            Integer data = r.nextInt(nums)+10;
+            map.put(data, data);
+        }
+        Long time1 = testSingleTraverse(1, map);
+        Long time2 = testSingleTraverse(2, map);
+        Long time3 = testSingleTraverse(3, map);
+        System.out.println("------在");
+    }
+    public static Long testSingleTraverse(Integer flag, Map map){
+        long startTime, endTime;
+        startTime = System.nanoTime();
+        switch (flag) {
+            case 1:
+                traverseOne(map);
+                break;
+            case 2:
+                traverseTwo(map);
+                break;
+            case 3:
+                traverseThree(map);
+                break;
+        }
+        endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+
+    public static void traverseOne(Map map){
+        Set set = map.keySet();
+        Iterator it1 = set.iterator();
+        while (it1.hasNext()) {
+            Object key_obj = it1.next();
+            Object value_obj = map.get(key_obj);
+            System.out.println("key : " + key_obj + " , value : " + value_obj);
+        }
+    }
+
+    public static void traverseTwo(Map map){
+        Collection collection = map.values();
+        Iterator it = collection.iterator();
+        while (it.hasNext()) {
+            Object value_obj = it.next();
+            System.out.println("value : " + value_obj);
+        }//output : only value, no key
+    }
+
+    public static void traverseThree(Map map){
+        Map.Entry en = null;
+        Iterator iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            en = (Map.Entry) iterator.next();
+            System.out.println("key : " + en.getKey() + " , value : " + en.getValue());
+        }
     }
 }
 
