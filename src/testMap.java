@@ -8,12 +8,13 @@ public class testMap {
      * @param args
      */
     public static void main(String[] args){
-        testBaseMethods();
+//        testBaseMethods();
 //        testHashMap();
 //        testTreeMap();
 //        testNull();
 //        testOrder();
 //        testPutPerformance();
+        testTraversePerformance();
     }
 
     public static void testBaseMethods(){
@@ -241,8 +242,24 @@ public class testMap {
         testVaryNums(map, nums);
         nums = 1000000;
         testVaryNums(map, nums);
-        nums = 100000000;
+        nums = 10000000;
         testVaryNums(map, nums);
+        /**Output
+         * ------在1000 规模下的 map.keySet 遍历时间 :780896
+         * ------在1000 规模下的 map.values 遍历时间 :426799
+         * ------在1000 规模下的 map.entrySet 遍历时间 :412687
+         * ------在50000 规模下的 map.keySet 遍历时间 :3907903
+         * ------在50000 规模下的 map.values 遍历时间 :2259297
+         * ------在50000 规模下的 map.entrySet 遍历时间 :2429503
+         * ------在1000000 规模下的 map.keySet 遍历时间 :37791372
+         * ------在1000000 规模下的 map.values 遍历时间 :21066672
+         * ------在1000000 规模下的 map.entrySet 遍历时间 :23875505
+         * ------在10000000 规模下的 map.keySet 遍历时间 :267162403
+         * ------在10000000 规模下的 map.values 遍历时间 :137588322
+         * ------在10000000 规模下的 map.entrySet 遍历时间 :152286368
+         * 总结： 亿级规模数据运行受阻，在千万级规模以下，普遍存在 map.values 与 map.entrySet 遍历速度相当，map.keySet 遍历速度较慢，
+         * 考虑到 entrySet 能同时得到 key 和 value ，所以推荐使用 map.entrySet 遍历;
+         */
     }
     public static void testVaryNums(Map map, Integer nums){
         Random r = new Random();
@@ -253,7 +270,9 @@ public class testMap {
         Long time1 = testSingleTraverse(1, map);
         Long time2 = testSingleTraverse(2, map);
         Long time3 = testSingleTraverse(3, map);
-        System.out.println("------在");
+        System.out.println("------在" + String.valueOf(nums) + " 规模下的 map.keySet 遍历时间 :" + String.valueOf(time1));
+        System.out.println("------在" + String.valueOf(nums) + " 规模下的 map.values 遍历时间 :" + String.valueOf(time2));
+        System.out.println("------在" + String.valueOf(nums) + " 规模下的 map.entrySet 遍历时间 :" + String.valueOf(time3));
     }
     public static Long testSingleTraverse(Integer flag, Map map){
         long startTime, endTime;
@@ -279,7 +298,7 @@ public class testMap {
         while (it1.hasNext()) {
             Object key_obj = it1.next();
             Object value_obj = map.get(key_obj);
-            System.out.println("key : " + key_obj + " , value : " + value_obj);
+//            System.out.println("key : " + key_obj + " , value : " + value_obj);
         }
     }
 
@@ -288,7 +307,7 @@ public class testMap {
         Iterator it = collection.iterator();
         while (it.hasNext()) {
             Object value_obj = it.next();
-            System.out.println("value : " + value_obj);
+//            System.out.println("value : " + value_obj);
         }//output : only value, no key
     }
 
@@ -297,7 +316,7 @@ public class testMap {
         Iterator iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             en = (Map.Entry) iterator.next();
-            System.out.println("key : " + en.getKey() + " , value : " + en.getValue());
+//            System.out.println("key : " + en.getKey() + " , value : " + en.getValue());
         }
     }
 }
