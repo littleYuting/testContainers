@@ -3,7 +3,7 @@
 
 ## 1.2 List、Set 与 Map 的区别  
 | ==Containers== | ArrayList | LinkedList | HashSet | LinkedHashSet | TreeSet  | HashMap | LinkedHashMap | TreeMap |
-| :----: | :----:| :----:| :----: | :----: |  :----:| :----: | :----: |:----: | :----: |
+| :----: | :----:| :----:| :----: | :----: |  :----:| :----: | :----: |:----: | 
 | ==DataStructure== | Object数组 | 双向链表 | HashMap  | LinkedHashMap  | 红黑树 | 数组+链表 | 拉链式散列结构 + 双向链表 | 红黑树 |
 ## 1.3 选用说明 
 - 只需存放元素值（ArrayList）
