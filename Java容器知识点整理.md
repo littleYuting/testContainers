@@ -49,7 +49,7 @@ TreeSet插入性能普遍更差的主要原因是在插入过程中构造一棵�
 一般方法：init、put、putAll、containsXX、get、remove、clear、isEmpty
 三种遍历方法：map.keySet(Set)、map.values(Collection)、（推荐）==map.entrySet(Set)==
 ## 2.1 HashMap
-- HashMap 底层结构及部分源码分析；
+- [HashMap 底层结构及部分源码分析](https://zhuanlan.zhihu.com/p/21673805)；
 ## 2.2 LinkedHashMap
 ## 2.3 TreeMap
 ## 2.4 对比 HashMap、LinkedHashMap和TreeMap
