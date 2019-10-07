@@ -49,6 +49,7 @@ TreeSet插入性能普遍更差的主要原因是在插入过程中构造一棵�
 一般方法：init、put、putAll、containsXX、get、remove、clear、isEmpty
 三种遍历方法：map.keySet(Set)、map.values(Collection)、（推荐）==map.entrySet(Set)==
 ## 2.1 HashMap
+- HashMap 底层结构及部分源码分析；
 ## 2.2 LinkedHashMap
 ## 2.3 TreeMap
 ## 2.4 对比 HashMap、LinkedHashMap和TreeMap
@@ -59,6 +60,7 @@ TreeSet插入性能普遍更差的主要原因是在插入过程中构造一棵�
     - Hashtable 不支持 key或value为null，会抛出空指针异常 compareTo 方法；
     - hashMap & linkedHashMap support key-null,null-value,null-null；
     - treeMap 不支持 key为null，会抛出空指针异常；
+    - 补充：HashMap 最多只允许一条记录的 key 为 null ，允许多条记录的 value 为 null；
 - 插入顺序对比
     - hashTable & hashMap 无序；
     - linkedHashMap 有序，且与put顺序一致；
@@ -67,6 +69,7 @@ TreeSet插入性能普遍更差的主要原因是在插入过程中构造一棵�
 - 遍历性能对比
 ## 4.1 对比 Map 与 Set 
 ## 4.2 容器与线程安全
+- HashMap 的线程安全： Collections.synchronizedMap or ConcurrentHashMap；
 ## 4.3 经典面试题整理
 - ArrayList 问题整理
     - ArrayList 与 Vector 区别：Vector类的所有方法都是同步
