@@ -70,6 +70,11 @@ TreeSet插入性能普遍更差的主要原因是在插入过程中构造一棵�
 ## 4.1 对比 Map 与 Set 
 ## 4.2 容器与线程安全
 - HashMap 的线程安全： Collections.synchronizedMap or ConcurrentHashMap；
+- [并行\并发集合](https://www.jianshu.com/p/7f50497b7f30)
+    - 同步集合类：Hashtable、Vector、stack；
+    - 同步集合包装类：Collections.synchronizedMap()、Collections.synchronizedList()；
+    - 并发集合：ConcurrentHashMap、ConcurrentSkipListMap、ConcurrentSkipListSet、CopyOnWriteArrayList、CopyOnWriteArraySet、ArrayBlockingQueue、LinkedBlockingQueue、PriorityBlockingQueue、LinkedBlockingDeque、ConcurrentLinkedQueue；
+
 ## 4.3 经典面试题整理
 - ArrayList 问题整理
     - ArrayList 与 Vector 区别：Vector类的所有方法都是同步
